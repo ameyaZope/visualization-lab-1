@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 function HorizontalHistogram({ currColName = 'streams', numBins = 20 }) {
 	const histogramSvgRef = useRef();
 	useEffect(() => {
-		var margin = { top: 10, right: 30, bottom: 60, left: 40 },
+		var margin = { top: 10, right: 30, bottom: 90, left: 90 },
 			width = 500 - margin.left - margin.right,
 			height = 500 - margin.top - margin.bottom;
 
@@ -38,8 +38,9 @@ function HorizontalHistogram({ currColName = 'streams', numBins = 20 }) {
 				.range([0, height]);
 			//Add the X Axis and The Label
 			const yAxis = svg.append("g")
-				.attr("transform", `translate(0,${width})`)
-				.call(d3.axisBottom(y))
+				.transition()
+				.duration(1000)
+				.call(d3.axisLeft(y))
 				.selectAll("text")
 				.attr("transform", "translate(-10,0)rotate(-45)")
 				.style("text-anchor", "end")
@@ -50,9 +51,8 @@ function HorizontalHistogram({ currColName = 'streams', numBins = 20 }) {
 				.range([width, 0]);
 			//Add y Axis and the label
 			const xAxis = svg.append("g")
-				.transition()
-				.duration(1000)
-				.call(d3.axisLeft(x))
+				.attr("transform", `translate(0,${height})`)
+				.call(d3.axisBottom(x))
 				.selectAll("text")
 				.attr("transform", "translate(-10,0)rotate(-45)")
 				.style("text-anchor", "end")

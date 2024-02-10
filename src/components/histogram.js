@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 function Histogram({ currColName = 'streams', numBins = 20 }) {
 	const histogramSvgRef = useRef();
 	useEffect(() => {
-		var margin = { top: 10, right: 30, bottom: 60, left: 40 },
+		var margin = { top: 10, right: 30, bottom: 90, left: 90 },
 			width = 500 - margin.left - margin.right,
 			height = 500 - margin.top - margin.bottom;
 
