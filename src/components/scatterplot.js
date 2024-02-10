@@ -2,7 +2,7 @@ import * as d3 from "d3";
 import { useEffect, useRef } from "react";
 
 
-function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCategorical }) {
+function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCategorical, xlabel, ylabel }) {
 	const scatterPlotSvgRef = useRef();
 
 	useEffect(() => {
@@ -57,7 +57,14 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 					.style('text-anchor', 'end')
 			}
 
-
+			// x axis label
+			svg.append('g')
+				.append('text')
+				.attr("x", width / 2)
+				.attr("y", height + 70)
+				.attr("fill", "currentColor")
+				.attr("text-anchor", "end")
+				.text(`${xlabel} →`)
 
 			//create and place the y axis. 
 			if (yAxisCategorical) {
@@ -89,6 +96,16 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 					.attr('transform', 'translate(-10, 0) rotate(-45)')
 					.style('text-anchor', 'end')
 			}
+
+			// y-axis-label
+			svg.append('g')
+				.append('text')
+				.attr("x", 0)
+				.attr("y", 0)
+				.attr("fill", "currentColor")
+				.attr("text-anchor", "center")
+				.text(`${ylabel} ↑`)
+
 			// Add dots
 			svg.append('g')
 				.selectAll("dot")
@@ -101,7 +118,7 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 				.style("fill", "#69b3a2")
 		})
 
-	}, [xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCategorical])
+	}, [xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCategorical, xlabel, ylabel])
 
 	return (
 		<svg width={600} height={600} id="chart" ref={scatterPlotSvgRef}></svg>

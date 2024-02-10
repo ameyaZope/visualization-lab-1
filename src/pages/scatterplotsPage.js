@@ -12,6 +12,15 @@ function isCategorical(feature, listOfFeatures) {
 	return false;
 }
 
+function getLabel(feature, listOfFeatures) {
+	for (const item of listOfFeatures) {
+		if(item['id']===feature) {
+			return item['disp_string'];
+		}
+	}
+	return undefined;
+}
+
 function ScatterplotsPage() {
 	const [xAxisFeature, setXAxisFeature] = useState('streams');
 	const handleXAxisFeatureChange = (event) => {
@@ -46,7 +55,11 @@ function ScatterplotsPage() {
 			<Typography variant='h2' align='center'>Scatterplots Page!</Typography>
 			<FeatureMenu barChartFeature={xAxisFeature} handleChange={handleXAxisFeatureChange} menuItems={scatterPlotMenuItems} labelValue='X Axis Feature' />
 			<FeatureMenu barChartFeature={yAxisFeature} handleChange={handleYAxisFeatureChange} menuItems={scatterPlotMenuItems} labelValue='Y Axis Feature' />
-			<Scatterplot xAxisFeature={xAxisFeature} yAxisFeature={yAxisFeature} xAxisCategorical={isCategorical(xAxisFeature, scatterPlotMenuItems)} yAxisCategorical={isCategorical(yAxisFeature, scatterPlotMenuItems)}/>
+			<Scatterplot xAxisFeature={xAxisFeature} yAxisFeature={yAxisFeature} 
+			xAxisCategorical={isCategorical(xAxisFeature, scatterPlotMenuItems)} 
+			yAxisCategorical={isCategorical(yAxisFeature, scatterPlotMenuItems)}
+			xlabel={getLabel(xAxisFeature, scatterPlotMenuItems)}
+			ylabel={getLabel(yAxisFeature, scatterPlotMenuItems)}/>
 		</Container>
 	);
 }
