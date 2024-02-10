@@ -22,7 +22,7 @@ function BarChart({ currColName = 'released_month' }) {
 			.attr("transform", `translate(${margin.left},${margin.top})`);
 
 		// Parse the Data
-		d3.csv("static/data/spotify-2023.csv", d3.autoType).then(function (data) {
+		d3.csv("static/data/spotify_processed_data.csv", d3.autoType).then(function (data) {
 			// var currColName = 'released_year'
 			var freqOfValues = new Map()
 			for (let i = 0; i < data.length; i++) {
