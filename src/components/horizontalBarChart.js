@@ -58,6 +58,19 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 				.attr("transform", "translate(-10,0)rotate(-45)")
 				.style("text-anchor", "end");
 
+			var tooltip = d3
+				.select('body')
+				.append('div')
+				.attr('class', 'd3-tooltip')
+				.style('position', 'absolute')
+				.style('z-index', '10')
+				.style('visibility', 'hidden')
+				.style('padding', '10px')
+				.style('background', 'rgba(0,0,0,0.6)')
+				.style('border-radius', '4px')
+				.style('color', '#fff')
+				.text('a simple tooltip');
+
 			// Bars
 			svg.selectAll("mybar")
 				.data(freqOfValues.entries())
@@ -65,10 +78,26 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 				.attr("x", d => x(0))
 				.attr("y", (d, i) => { return y(d[0]) })
 				.attr("height", y.bandwidth())
-				.attr("fill", "#69b3a2")
+				.attr("fill", "steelblue")
 				// no bar at the beginning thus:
 				.attr("width", d => x(0)) // always equal to 0
-
+				.on('mouseover', function (event, data) {
+					tooltip
+						.html(
+							`<div>Frequency: ${data[1]}</div>`
+						)
+						.style('visibility', 'visible');
+					d3.select(this).transition().attr('fill', '#eec42d');
+				})
+				.on('mousemove', function (d) {
+					tooltip
+						.style('top', d.pageY - 10 + 'px')
+						.style('left', d.pageX + 10 + 'px');
+				})
+				.on('mouseout', function () {
+					tooltip.html(``).style('visibility', 'hidden');
+					d3.select(this).transition().attr('fill', 'steelblue');
+				})
 
 			// Animation
 			svg.selectAll("rect")

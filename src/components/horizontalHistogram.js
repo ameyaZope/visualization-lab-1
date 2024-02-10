@@ -57,6 +57,19 @@ function HorizontalHistogram({ currColName = 'streams', numBins = 20 }) {
 				.attr("transform", "translate(-10,0)rotate(-45)")
 				.style("text-anchor", "end")
 
+			var tooltip = d3
+				.select('body')
+				.append('div')
+				.attr('class', 'd3-tooltip')
+				.style('position', 'absolute')
+				.style('z-index', '10')
+				.style('visibility', 'hidden')
+				.style('padding', '10px')
+				.style('background', 'rgba(0,0,0,0.6)')
+				.style('border-radius', '4px')
+				.style('color', '#fff')
+				.text('a simple tooltip');
+
 			// Add a rect for each bin.
 			svg.append("g")
 				.attr("fill", "steelblue")
@@ -66,7 +79,24 @@ function HorizontalHistogram({ currColName = 'streams', numBins = 20 }) {
 				.attr("y", (d) => y(d.x0) + 1)
 				.attr("height", (d) => y(d.x1) - y(d.x0))
 				.attr("x", (d) => width - x(0))
-				.attr("width", (d) => width - x(0));
+				.attr("width", (d) => width - x(0))
+				.on('mouseover', function (event, data) {
+					tooltip
+						.html(
+							`<div>Frequency: ${data.length}</div>`
+						)
+						.style('visibility', 'visible');
+					d3.select(this).transition().attr('fill', '#eec42d');
+				})
+				.on('mousemove', function (d) {
+					tooltip
+						.style('top', d.pageY - 10 + 'px')
+						.style('left', d.pageX + 10 + 'px');
+				})
+				.on('mouseout', function () {
+					tooltip.html(``).style('visibility', 'hidden');
+					d3.select(this).transition().attr('fill', 'steelblue');
+				});
 
 			// Animation
 			svg.selectAll("rect")
