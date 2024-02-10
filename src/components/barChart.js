@@ -45,7 +45,6 @@ function BarChart({ currColName = 'released_month' }) {
 			for (const [k, v] of freqOfValues) {
 				maxVal = Math.max(maxVal, v)
 			}
-			console.log(freqOfValues);
 			const y = d3.scaleLinear()
 				.domain([0, maxVal * 1.1])
 				.range([height, 0]);

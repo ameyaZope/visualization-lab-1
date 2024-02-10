@@ -1,33 +1,47 @@
-import { Container, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { Container, Typography } from "@mui/material";
+import BarOrientationMenu from "components/barOrientationMenu";
+import BinSlider from "components/binSlider";
+import FeatureMenu from "components/featureMenu";
+import Histogram from "components/histogram";
+import HorizontalHistogram from "components/horizontalHistogram";
 import { useState } from "react";
 
 
 function HistorgramsPage() {
-	const [histFeature, setHistFeature] = useState('histFeature');
+	const [histFeature, setHistFeature] = useState('streams');
 	const handleChange = (event) => {
-		alert('Changing To ' + event.target.value)
 		setHistFeature(event.target.value)
 	}
+
+	const [value, setValue] = useState('vertical_bars');
+
+	const handleChangeRadioButton = (event) => {
+		setValue(event.target.value);
+	};
+
+	const [numBins, setNumBins] = useState(20);
+	const handleNumBinsChange = (event) => {
+		console.log("Num Bins Changed to " + event.target.value)
+		setNumBins(event.target.value)
+	};
+
+	const histogramMenuItems = [
+		{ 'id': 'streams', disp_string: 'Streams' },
+		{ 'id': 'danceability_percent', disp_string: 'Danceability Percent' },
+		{ 'id': 'valence_percent', disp_string: 'Valence Percent' },
+		{ 'id': 'energy_percent', disp_string: 'Energy Percent' },
+		{ 'id': 'acousticness_percent', disp_string: 'Acousticness Percent' },
+		{ 'id': 'instrumentalness_percent', disp_string: 'Instrumentalness Percent' },
+		{ 'id': 'liveness_percent', disp_string: 'Liveness Percent' },
+		{ 'id': 'speechiness_percent', disp_string: 'Speechiness Percent' }]
+
 	return (
 		<Container>
-			<Typography variant='h1' align='center'>Histograms Page!</Typography>
-			<FormControl fullWidth sx={{ m: 1, width:160, }}>
-				<InputLabel id="demo-simple-select-label">Histogram Feature</InputLabel>
-				<Select
-					labelId="demo-simple-select-label"
-					id="demo-simple-select"
-					value={histFeature}
-					label="Histogram Feature"
-					onChange={handleChange}
-				>
-					<MenuItem value={10}>Ten</MenuItem>
-					<MenuItem value={20}>Twenty</MenuItem>
-					<MenuItem value={30}>Thirty</MenuItem>
-					<MenuItem value={40}>Forty</MenuItem>
-					<MenuItem value={50}>Fifty</MenuItem>
-					<MenuItem value={60}>Sixty</MenuItem>
-				</Select>
-			</FormControl>
+			<Typography variant='h2' align='center'>Histograms Page!</Typography>
+			<FeatureMenu barChartFeature={histFeature} handleChange={handleChange} menuItems={histogramMenuItems} />
+			<BarOrientationMenu value={value} handleChange={handleChangeRadioButton} />
+			<BinSlider numBins={numBins} handleChange={handleNumBinsChange} />
+			{value === 'vertical_bars' ? <Histogram currColName={histFeature} numBins={numBins} /> : <HorizontalHistogram currColName={histFeature} numBins={numBins} />}
 		</Container>
 	);
 }

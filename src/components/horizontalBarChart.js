@@ -6,7 +6,7 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 	useEffect(() => {
 		// set the dimensions and margins of the graph
 		const margin = { top: 10, right: 30, bottom: 90, left: 90 },
-			width = 600 - margin.left - margin.right,
+			width = 800 - margin.left - margin.right,
 			height = 600 - margin.top - margin.bottom;
 
 		// below line clears the svg so that next graph can be drawn on it, 
@@ -35,7 +35,6 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 			for (const [k, v] of freqOfValues) {
 				maxVal = Math.max(maxVal, v)
 			}
-			console.log(freqOfValues);
 			const x = d3.scaleLinear()
 				.domain([0, maxVal * 1.1])
 				.range([0, width]);
