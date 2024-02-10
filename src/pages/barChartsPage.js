@@ -11,7 +11,7 @@ function BarChartsPage() {
 	return (
 		<Container>
 			<Typography variant='h1' align='center'>Bar Chart Page!</Typography>
-			<FormControl fullWidth sx={{ m: 1, width: 160, }}>
+			<FormControl fullWidth sx={{ m: 1, width: 260, }}>
 				<InputLabel id="demo-simple-select-label">Bar Chart Feature</InputLabel>
 				<Select
 					labelId="demo-simple-select-label"
@@ -26,8 +26,11 @@ function BarChartsPage() {
 					<MenuItem value={'bpm'}>Beats Per Minute</MenuItem>
 					<MenuItem value={'key'}>Key</MenuItem>
 					<MenuItem value={'mode'}>Mode</MenuItem>
+					<MenuItem value={'in_spotify_playlists_categorical'}>Spotify Playlists Popularity</MenuItem>
+					<MenuItem value={'in_apple_playlists_categorical'}>Apple Playlists Popularity</MenuItem>
 				</Select>
 			</FormControl>
+
 			<BarChart currColName={barChartFeature} />
 		</Container>
 	);
