@@ -38,7 +38,7 @@ function HistorgramsPage() {
 	return (
 		<Container>
 			<Typography variant='h2' align='center'>Histograms Page!</Typography>
-			<FeatureMenu barChartFeature={histFeature} handleChange={handleChange} menuItems={histogramMenuItems} />
+			<FeatureMenu barChartFeature={histFeature} handleChange={handleChange} menuItems={histogramMenuItems} labelValue='Histogram Feature'/>
 			<BarOrientationMenu value={value} handleChange={handleChangeRadioButton} />
 			<BinSlider numBins={numBins} handleChange={handleNumBinsChange} />
 			{value === 'vertical_bars' ? <Histogram currColName={histFeature} numBins={numBins} /> : <HorizontalHistogram currColName={histFeature} numBins={numBins} />}
