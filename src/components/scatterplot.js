@@ -106,6 +106,19 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 				.attr("text-anchor", "center")
 				.text(`${ylabel} ↑`)
 
+			var tooltip = d3
+				.select('body')
+				.append('div')
+				.attr('class', 'd3-tooltip')
+				.style('position', 'absolute')
+				.style('z-index', '10')
+				.style('visibility', 'hidden')
+				.style('padding', '10px')
+				.style('background', 'rgba(0,0,0,0.6)')
+				.style('border-radius', '4px')
+				.style('color', '#fff')
+				.text('a simple tooltip');
+
 			// Add dots
 			svg.append('g')
 				.selectAll("dot")
@@ -116,6 +129,24 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 				.attr("cy", function (d) { return y(d[yAxisFeature]); })
 				.attr("r", 3)
 				.style("fill", "#69b3a2")
+				.on('mouseover', function (event, data) {
+					console.log(data)
+					tooltip
+						.html(
+							`<div>Track Name: ${data['track_name']} <br> ${xlabel} : ${data[xAxisFeature]} <br> ${ylabel} : ${data[yAxisFeature]} </div>`
+						)
+						.style('visibility', 'visible');
+					d3.select(this).transition().attr('fill', '#eec42d');
+				})
+				.on('mousemove', function (d) {
+					tooltip
+						.style('top', d.pageY - 10 + 'px')
+						.style('left', d.pageX + 10 + 'px');
+				})
+				.on('mouseout', function () {
+					tooltip.html(``).style('visibility', 'hidden');
+					d3.select(this).transition().attr('fill', 'steelblue');
+				})
 		})
 
 	}, [xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCategorical, xlabel, ylabel])
