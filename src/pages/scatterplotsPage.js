@@ -41,7 +41,7 @@ function ScatterplotsPage() {
 		{ 'id': 'instrumentalness_percent', disp_string: 'Instrumentalness Percent', 'categorical': false },
 		{ 'id': 'liveness_percent', disp_string: 'Liveness Percent', 'categorical': false },
 		{ 'id': 'speechiness_percent', disp_string: 'Speechiness Percent', 'categorical': false },
-		{ 'id': 'released_year', disp_string: 'Released Year', 'categorical': true },
+		{ 'id': 'released_year_categorical', disp_string: 'Released Year', 'categorical': true },
 		{ 'id': 'released_month', disp_string: 'Released Month', 'categorical': true },
 		{ 'id': 'released_day', disp_string: 'Released Day', 'categorical': true },
 		{ 'id': 'bpm_categorical', disp_string: 'Beats Per Minute', 'categorical': true },

@@ -19,7 +19,7 @@ function BarChartsPage() {
 	};
 
 	const barChartMenuItems = [
-		{ 'id': 'released_year', disp_string: 'Released Year' },
+		{ 'id': 'released_year_categorical', disp_string: 'Released Year' },
 		{ 'id': 'released_month', disp_string: 'Released Month' },
 		{ 'id': 'released_day', disp_string: 'Released Day' },
 		{ 'id': 'bpm_categorical', disp_string: 'Beats Per Minute' },
