@@ -44,7 +44,7 @@ function ScatterplotsPage() {
 		{ 'id': 'released_year', disp_string: 'Released Year', 'categorical': true },
 		{ 'id': 'released_month', disp_string: 'Released Month', 'categorical': true },
 		{ 'id': 'released_day', disp_string: 'Released Day', 'categorical': true },
-		{ 'id': 'bpm', disp_string: 'Beats Per Minute', 'categorical': true },
+		{ 'id': 'bpm_categorical', disp_string: 'Beats Per Minute', 'categorical': true },
 		{ 'id': 'key', disp_string: 'Key', 'categorical': true },
 		{ 'id': 'mode', disp_string: 'Mode', 'categorical': true },
 		{ 'id': 'in_spotify_playlists_categorical', disp_string: 'In Spotify Playlists', 'categorical': true },
