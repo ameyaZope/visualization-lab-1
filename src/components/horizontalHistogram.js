@@ -109,7 +109,7 @@ function HorizontalHistogram({ currColName = 'streams', numBins = 20 }) {
 	}, [currColName, numBins])
 
 	return (
-		<svg width={700} height={700} id="chart" ref={histogramSvgRef} />
+		<svg width={500} height={500} id="chart" ref={histogramSvgRef} />
 	);
 }
 

@@ -6,8 +6,8 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 	useEffect(() => {
 		// set the dimensions and margins of the graph
 		const margin = { top: 10, right: 30, bottom: 90, left: 90 },
-			width = 800 - margin.left - margin.right,
-			height = 600 - margin.top - margin.bottom;
+			width = 500 - margin.left - margin.right,
+			height = 500 - margin.top - margin.bottom;
 
 		// below line clears the svg so that next graph can be drawn on it, 
 		// else there is overlap of graphs
@@ -109,7 +109,7 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 	}, [currColName]);
 
 	return (
-		<svg width={800} height={600} id="barchart" ref={barChartSvgRef} />
+		<svg width={600} height={600} id="barchart" ref={barChartSvgRef} />
 	);
 }
 
