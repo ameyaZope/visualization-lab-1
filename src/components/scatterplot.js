@@ -6,8 +6,8 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 	const scatterPlotSvgRef = useRef();
 
 	useEffect(() => {
-		var margin = { top: 20, bottom: 80, left: 90, right: 50 };
-		var width = 500, height = 500;
+		var margin = { top: 40, bottom: 90, left: 90, right: 50 };
+		var width = 500, height = 400;
 
 		var svgSelected = d3.select('#chart');
 		svgSelected.selectAll('*').remove();
@@ -19,6 +19,13 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 			.append('g')
 			.attr("transform",
 				"translate(" + margin.left + "," + margin.top + ")");
+		svg.append("text")
+			.attr("x", width / 2)
+			.attr("y", 0 - (margin.top / 2))
+			.attr("text-anchor", "middle")
+			.style("font-size", "20px")
+			.style("text-decoration", "underline")
+			.text(`${ylabel} vs ${xlabel}`);
 
 		d3.csv('static/data/spotify_processed_data.csv', d3.autoType).then(function (data) {
 			let x, y;
@@ -96,15 +103,13 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 					.attr('transform', 'translate(-10, 0) rotate(-45)')
 					.style('text-anchor', 'end')
 			}
-
-			// y-axis-label
-			svg.append('g')
-				.append('text')
-				.attr("x", 0)
-				.attr("y", 0)
-				.attr("fill", "currentColor")
-				.attr("text-anchor", "center")
-				.text(`${ylabel} ↑`)
+			svg.append("text")
+				.attr("transform", "rotate(-90)")
+				.attr("y", 0 - margin.left)
+				.attr("x", 0 - (height / 2))
+				.attr("dy", "1em")
+				.style("text-anchor", "middle")
+				.text(`${ylabel} →`);
 
 			var tooltip = d3
 				.select('body')
