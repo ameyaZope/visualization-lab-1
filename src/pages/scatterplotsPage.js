@@ -1,4 +1,4 @@
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import FeatureMenu from "components/featureMenu";
 import Scatterplot from "components/scatterplot";
 import { useState } from "react";
@@ -52,7 +52,6 @@ function ScatterplotsPage() {
 
 	return (
 		<Container>
-			<Typography variant='h2' align='center'>Scatterplots Page!</Typography>
 			<FeatureMenu barChartFeature={xAxisFeature} handleChange={handleXAxisFeatureChange} menuItems={scatterPlotMenuItems} labelValue='X Axis Feature' />
 			<FeatureMenu barChartFeature={yAxisFeature} handleChange={handleYAxisFeatureChange} menuItems={scatterPlotMenuItems} labelValue='Y Axis Feature' />
 			<Scatterplot xAxisFeature={xAxisFeature} yAxisFeature={yAxisFeature} 

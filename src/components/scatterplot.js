@@ -130,7 +130,6 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 				.attr("r", 3)
 				.style("fill", "#69b3a2")
 				.on('mouseover', function (event, data) {
-					console.log(data)
 					tooltip
 						.html(
 							`<div>Track Name: ${data['track_name']} <br> ${xlabel} : ${data[xAxisFeature]} <br> ${ylabel} : ${data[yAxisFeature]} </div>`

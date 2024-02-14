@@ -1,9 +1,9 @@
-import logo from './logo.svg';
-import './App.css';
+import BarChartAndHistogramPage from 'pages/barChartAndHistogramPage';
 import { Route, Routes } from "react-router-dom";
-import HomePage from './pages/homePage';
+import './App.css';
 import BarChartsPage from './pages/barChartsPage';
 import HistorgramsPage from './pages/histogramsPage';
+import HomePage from './pages/homePage';
 import ScatterplotsPage from './pages/scatterplotsPage';
 
 function App() {
@@ -20,6 +20,10 @@ function App() {
       <Route
         exact path="/histogramsPage"
         element={<HistorgramsPage />}
+      />
+      <Route
+        exact path="/barChartAndHistogramPage"
+        element={<BarChartAndHistogramPage />}
       />
       <Route
         exact path="/scatterplotsPage"
