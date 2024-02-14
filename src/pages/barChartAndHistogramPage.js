@@ -53,7 +53,7 @@ function BarChartAndHistogramPage() {
 		{ 'id': 'in_apple_playlists_categorical', disp_string: 'In Apple Playlists', 'categorical': true }]
 	return (
 		<Container>
-			<FeatureMenu barChartFeature={feature} handleChange={handleFeatureChange} menuItems={featureItems} labelValue='Bar Chart Feature' />
+			<FeatureMenu initialFeature={feature} handleChange={handleFeatureChange} menuItems={featureItems} labelValue='Bar Chart Feature' />
 			<BarOrientationMenu value={value} handleChange={handleChangeRadioButton} />
 			{isCategorical(feature, featureItems) && value === 'vertical_bars' && <BarChart currColName={feature} />}
 			{isCategorical(feature, featureItems) && value !== 'vertical_bars' && <HorizontalBarChart currColName={feature} />}

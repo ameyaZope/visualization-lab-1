@@ -1,13 +1,13 @@
 import { FormControl, InputLabel, MenuItem, Select } from "../../node_modules/@mui/material/index";
 
-function FeatureMenu({ barChartFeature, handleChange, menuItems, labelValue }) {
+function FeatureMenu({ initialFeature, handleChange, menuItems, labelValue }) {
 	return (
 		<FormControl sx={{ m: 1, width: 260, }}>
 			<InputLabel id="demo-simple-select-label">{labelValue}</InputLabel>
 			<Select
 				labelId="demo-simple-select-label"
 				id="demo-simple-select"
-				value={barChartFeature}
+				value={initialFeature}
 				label="Bar Chart Feature"
 				onChange={handleChange}
 			>

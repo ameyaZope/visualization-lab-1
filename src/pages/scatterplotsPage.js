@@ -1,5 +1,6 @@
 import { Container } from "@mui/material";
 import FeatureMenu from "components/featureMenu";
+import FeatureSelectionMenu from "components/featureSelectionMenu";
 import Scatterplot from "components/scatterplot";
 import { useState } from "react";
 
@@ -23,13 +24,24 @@ function getLabel(feature, listOfFeatures) {
 
 function ScatterplotsPage() {
 	const [xAxisFeature, setXAxisFeature] = useState('streams');
-	const handleXAxisFeatureChange = (event) => {
-		setXAxisFeature(event.target.value)
+
+	const [yAxisFeature, setYAxisFeature] = useState(undefined)
+
+	const [currFeature, setCurrFeature] = useState('x')
+	const handleCurrFeatureChange = (event) => {
+		console.log('Setting currFeature to ' + event.target.value);
+		setCurrFeature(event.target.value)
 	}
 
-	const [yAxisFeature, setYAxisFeature] = useState('released_month')
-	const handleYAxisFeatureChange = (event) => {
-		setYAxisFeature(event.target.value)
+	const handleFeatureChange = (event) => {
+		if (currFeature === 'x') {
+			console.log('Setting x axis feature to ' + event.target.value)
+			setXAxisFeature(event.target.value)
+		}
+		else if (currFeature === 'y') {
+			console.log('Setting y axis feature to ' + event.target.value)
+			setYAxisFeature(event.target.value)
+		}
 	}
 
 	const scatterPlotMenuItems = [
@@ -52,13 +64,13 @@ function ScatterplotsPage() {
 
 	return (
 		<Container>
-			<FeatureMenu barChartFeature={xAxisFeature} handleChange={handleXAxisFeatureChange} menuItems={scatterPlotMenuItems} labelValue='X Axis Feature' />
-			<FeatureMenu barChartFeature={yAxisFeature} handleChange={handleYAxisFeatureChange} menuItems={scatterPlotMenuItems} labelValue='Y Axis Feature' />
-			<Scatterplot xAxisFeature={xAxisFeature} yAxisFeature={yAxisFeature} 
+			<FeatureSelectionMenu value={currFeature} handleChange={handleCurrFeatureChange} values={['x', 'y']} labels={['x-axis', 'y-axis']} />
+			<FeatureMenu initialFeature={currFeature==='x' ? xAxisFeature : yAxisFeature} handleChange={handleFeatureChange} menuItems={scatterPlotMenuItems} labelValue='Feature' />
+			{xAxisFeature !== undefined && yAxisFeature !== undefined && <Scatterplot xAxisFeature={xAxisFeature} yAxisFeature={yAxisFeature} 
 			xAxisCategorical={isCategorical(xAxisFeature, scatterPlotMenuItems)} 
 			yAxisCategorical={isCategorical(yAxisFeature, scatterPlotMenuItems)}
 			xlabel={getLabel(xAxisFeature, scatterPlotMenuItems)}
-			ylabel={getLabel(yAxisFeature, scatterPlotMenuItems)}/>
+				ylabel={getLabel(yAxisFeature, scatterPlotMenuItems)} />}
 		</Container>
 	);
 }

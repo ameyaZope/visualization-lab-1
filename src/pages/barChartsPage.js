@@ -30,7 +30,7 @@ function BarChartsPage() {
 	return (
 		<Container>
 			<Typography variant='h2' align='center'>Bar Chart Page!</Typography>
-			<FeatureMenu barChartFeature={barChartFeature} handleChange={handleChange} menuItems={barChartMenuItems} labelValue='Bar Chart Feature'/>
+			<FeatureMenu initialFeature={barChartFeature} handleChange={handleChange} menuItems={barChartMenuItems} labelValue='Bar Chart Feature'/>
 			<BarOrientationMenu value={value} handleChange={handleChangeRadioButton} />
 			{value === 'vertical_bars' ? <BarChart currColName={barChartFeature} /> : <HorizontalBarChart currColName={barChartFeature} />}
 		</Container>
