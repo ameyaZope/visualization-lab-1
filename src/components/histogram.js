@@ -1,10 +1,10 @@
 import * as d3 from "d3";
 import { useEffect, useRef } from "react";
 
-function Histogram({ currColName = 'streams', numBins = 20 }) {
+function Histogram({ currColName = 'streams', numBins = 20, currColDispName = 'Streams' }) {
 	const histogramSvgRef = useRef();
 	useEffect(() => {
-		var margin = { top: 10, right: 30, bottom: 90, left: 90 },
+		var margin = { top: 30, right: 30, bottom: 50, left: 90 },
 			width = 500 - margin.left - margin.right,
 			height = 500 - margin.top - margin.bottom;
 
@@ -21,6 +21,13 @@ function Histogram({ currColName = 'streams', numBins = 20 }) {
 			.append("g")
 			.attr("transform",
 				"translate(" + margin.left + "," + margin.top + ")");
+		svg.append("text")
+			.attr("x", width / 2)
+			.attr("y", 0 - (margin.top / 2))
+			.attr("text-anchor", "middle")
+			.style("font-size", "20px")
+			.style("text-decoration", "underline")
+			.text(`Frequency vs ${currColDispName}`);
 
 		// get the data
 		d3.csv("static/data/spotify_processed_data.csv", d3.autoType).then(function (data) {
@@ -43,6 +50,10 @@ function Histogram({ currColName = 'streams', numBins = 20 }) {
 				.selectAll("text")
 				.attr("transform", "translate(-10,0)rotate(-45)")
 				.style("text-anchor", "end")
+			svg.append("text")
+				.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
+				.style("text-anchor", "middle")
+				.text(`${currColDispName}`); 
 
 			// Declare the y (vertical position) scale.
 			const y = d3.scaleLinear()
@@ -56,6 +67,13 @@ function Histogram({ currColName = 'streams', numBins = 20 }) {
 				.selectAll("text")
 				.attr("transform", "translate(-10,0)rotate(-45)")
 				.style("text-anchor", "end");
+			svg.append("text")
+				.attr("transform", "rotate(-90)")
+				.attr("y", 0 - margin.left)
+				.attr("x", 0 - (height / 2))
+				.attr("dy", "1em")
+				.style("text-anchor", "middle")
+				.text("Frequency");
 
 			var tooltip = d3
 				.select('body')
@@ -107,7 +125,7 @@ function Histogram({ currColName = 'streams', numBins = 20 }) {
 				.attr("height", (d) => y(0) - y(d.length))
 
 		});
-	}, [currColName, numBins])
+	}, [currColName, numBins, currColDispName])
 
 	return (
 		<svg width={500} height={500} id="chart" ref={histogramSvgRef} />

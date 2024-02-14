@@ -17,23 +17,18 @@ function isCategorical(feature, listOfFeatures) {
 	return false;
 }
 
-function BarChartAndHistogramPage() {
-	const [feature, setFeature] = useState('released_month');
-	const handleFeatureChange = (event) => {
-		setFeature(event.target.value)
+function getDispName(feature, menuItems) {
+	for (const elem of menuItems) {
+		if (elem['id'] == feature) {
+			console.log('Feature = ' + elem['disp_string']);
+			return elem['disp_string']
+		}
 	}
+	console.log('Returning undefined')
+	return undefined
+}
 
-	const [value, setValue] = useState('vertical_bars');
-	const handleChangeRadioButton = (event) => {
-		setValue(event.target.value);
-	};
-
-	const [numBins, setNumBins] = useState(20);
-	const handleNumBinsChange = (event) => {
-		console.log("Num Bins Changed to " + event.target.value)
-		setNumBins(event.target.value)
-	};
-
+function BarChartAndHistogramPage() {
 	const featureItems = [
 		{ 'id': 'streams', disp_string: 'Streams', 'categorical': false },
 		{ 'id': 'danceability_percent', disp_string: 'Danceability Percent', 'categorical': false },
@@ -51,14 +46,33 @@ function BarChartAndHistogramPage() {
 		{ 'id': 'mode', disp_string: 'Mode', 'categorical': true },
 		{ 'id': 'in_spotify_playlists_categorical', disp_string: 'In Spotify Playlists', 'categorical': true },
 		{ 'id': 'in_apple_playlists_categorical', disp_string: 'In Apple Playlists', 'categorical': true }]
+
+	const [featureDispString, setFeatureDispString] = useState('Released Month');
+	const [feature, setFeature] = useState('released_month');
+	const handleFeatureChange = (event) => {
+		setFeature(event.target.value)
+		setFeatureDispString(getDispName(event.target.value, featureItems))
+	}
+
+	const [value, setValue] = useState('vertical_bars');
+	const handleChangeRadioButton = (event) => {
+		setValue(event.target.value);
+	};
+
+	const [numBins, setNumBins] = useState(20);
+	const handleNumBinsChange = (event) => {
+		console.log("Num Bins Changed to " + event.target.value)
+		setNumBins(event.target.value)
+	};
+
 	return (
 		<Container>
 			<FeatureMenu initialFeature={feature} handleChange={handleFeatureChange} menuItems={featureItems} labelValue='Bar Chart Feature' />
 			<BarOrientationMenu value={value} handleChange={handleChangeRadioButton} />
-			{isCategorical(feature, featureItems) && value === 'vertical_bars' && <BarChart currColName={feature} />}
-			{isCategorical(feature, featureItems) && value !== 'vertical_bars' && <HorizontalBarChart currColName={feature} />}
-			{!isCategorical(feature, featureItems) && value === 'vertical_bars' && <Container><BinSlider numBins={numBins} handleChange={handleNumBinsChange} /> <Histogram currColName={feature} numBins={numBins} /> </Container>}
-			{!isCategorical(feature, featureItems) && value !== 'vertical_bars' && <Container><BinSlider numBins={numBins} handleChange={handleNumBinsChange} /> <HorizontalHistogram currColName={feature} numBins={numBins} /> </Container>}
+			{isCategorical(feature, featureItems) && value === 'vertical_bars' && <BarChart currColName={feature} currColDispName={featureDispString} />}
+			{isCategorical(feature, featureItems) && value !== 'vertical_bars' && <HorizontalBarChart currColName={feature} currColDispName={featureDispString} />}
+			{!isCategorical(feature, featureItems) && value === 'vertical_bars' && <Container><BinSlider numBins={numBins} handleChange={handleNumBinsChange} /> <Histogram currColName={feature} numBins={numBins} currColDispName={featureDispString} /> </Container>}
+			{!isCategorical(feature, featureItems) && value !== 'vertical_bars' && <Container><BinSlider numBins={numBins} handleChange={handleNumBinsChange} /> <HorizontalHistogram currColName={feature} numBins={numBins} currColDispName={featureDispString} /> </Container>}
 		</Container>
 	);
 }

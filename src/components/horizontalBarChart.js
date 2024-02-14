@@ -1,11 +1,11 @@
 import * as d3 from "d3";
 import { useEffect, useRef } from "react";
 
-function HorizontalBarChart({ currColName = 'released_month' }) {
+function HorizontalBarChart({ currColName = 'released_month', currColDispName = 'Released Month' }) {
 	const barChartSvgRef = useRef();
 	useEffect(() => {
 		// set the dimensions and margins of the graph
-		const margin = { top: 10, right: 30, bottom: 90, left: 90 },
+		const margin = { top: 30, right: 30, bottom: 90, left: 90 },
 			width = 500 - margin.left - margin.right,
 			height = 500 - margin.top - margin.bottom;
 
@@ -21,6 +21,13 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 			.attr("height", height + margin.top + margin.bottom)
 			.append("g")
 			.attr("transform", `translate(${margin.left},${margin.top})`);
+		svg.append("text")
+			.attr("x", width / 2)
+			.attr("y", 0 - (margin.top / 2))
+			.attr("text-anchor", "middle")
+			.style("font-size", "20px")
+			.style("text-decoration", "underline")
+			.text(`Frequency vs ${currColDispName}`);
 
 		// Parse the Data
 		d3.csv("static/data/spotify_processed_data.csv", d3.autoType).then(function (data) {
@@ -44,6 +51,10 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 				.selectAll("text")
 				.attr("transform", "translate(-10,0)rotate(-45)")
 				.style("text-anchor", "end");
+			svg.append("text")
+				.attr("transform", `translate(${width / 2}, ${height + margin.bottom - 10})`)
+				.style("text-anchor", "middle")
+				.text(`Frequency`); 
 
 			// Y axis
 			const y = d3.scaleBand()
@@ -57,6 +68,13 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 				.selectAll("text")
 				.attr("transform", "translate(-10,0)rotate(-45)")
 				.style("text-anchor", "end");
+			svg.append("text")
+				.attr("transform", "rotate(-90)")
+				.attr("y", 0 - margin.left)
+				.attr("x", 0 - (height / 2))
+				.attr("dy", "1em")
+				.style("text-anchor", "middle")
+				.text(`${currColDispName}`);
 
 			var tooltip = d3
 				.select('body')
@@ -106,7 +124,7 @@ function HorizontalBarChart({ currColName = 'released_month' }) {
 				.delay((d, i) => { return i * 20 })
 				.attr("width", d => x(d[1]))
 		})
-	}, [currColName]);
+	}, [currColName, currColDispName]);
 
 	return (
 		<svg width={600} height={600} id="barchart" ref={barChartSvgRef} />
