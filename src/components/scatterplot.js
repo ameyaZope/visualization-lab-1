@@ -148,7 +148,8 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 					// Return position with optional jitter
 					return y(d[yAxisFeature]) + (yAxisCategorical ? jitter : 0);
 			})
-				.attr("r", 3)
+				.attr("r", 4)
+				.attr('opacity', 0.7)
 				.style("fill", "#69b3a2")
 				.on('mouseover', function (event, data) {
 					tooltip
