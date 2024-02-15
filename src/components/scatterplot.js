@@ -130,8 +130,24 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 				.data(data)
 				.enter()
 				.append("circle")
-				.attr("cx", function (d) { return x(d[xAxisFeature]); })
-				.attr("cy", function (d) { return y(d[yAxisFeature]); })
+				.attr("cx", function (d) {
+					let jitter = 0; // Initialize jitter to 0
+					// Apply jitter if xAxis is categorical
+					if (xAxisCategorical) {
+							jitter = (Math.random() - 0.5) * x.bandwidth();
+					}
+					// Return position with optional jitter
+					return x(d[xAxisFeature]) + (xAxisCategorical ? jitter : 0);
+			})
+			.attr("cy", function (d) {
+					let jitter = 0; // Initialize jitter to 0
+					// Apply jitter if yAxis is categorical
+					if (yAxisCategorical) {
+							jitter = (Math.random() - 0.5) * y.bandwidth();
+					}
+					// Return position with optional jitter
+					return y(d[yAxisFeature]) + (yAxisCategorical ? jitter : 0);
+			})
 				.attr("r", 3)
 				.style("fill", "#69b3a2")
 				.on('mouseover', function (event, data) {
