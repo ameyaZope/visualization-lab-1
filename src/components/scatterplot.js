@@ -133,7 +133,7 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 				.attr("cx", function (d) {
 					let jitter = 0; // Initialize jitter to 0
 					// Apply jitter if xAxis is categorical
-					if (xAxisCategorical) {
+					if (xAxisCategorical && yAxisCategorical) {
 							jitter = (Math.random() - 0.5) * x.bandwidth();
 					}
 					// Return position with optional jitter
@@ -142,7 +142,7 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 			.attr("cy", function (d) {
 					let jitter = 0; // Initialize jitter to 0
 					// Apply jitter if yAxis is categorical
-					if (yAxisCategorical) {
+					if (xAxisCategorical && yAxisCategorical) {
 							jitter = (Math.random() - 0.5) * y.bandwidth();
 					}
 					// Return position with optional jitter
