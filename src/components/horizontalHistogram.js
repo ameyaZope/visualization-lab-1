@@ -42,7 +42,7 @@ function HorizontalHistogram({ currColName = 'streams', numBins = 20, currColDis
 			// Declare the x (horizontal position) scale.
 			const y = d3.scaleLinear()
 				.domain([bins[0].x0, bins[bins.length - 1].x1])
-				.range([0, height]);
+				.range([height, 0]);
 			//Add the X Axis and The Label
 			const yAxis = svg.append("g")
 				.transition()
@@ -62,7 +62,7 @@ function HorizontalHistogram({ currColName = 'streams', numBins = 20, currColDis
 			// Declare the y (vertical position) scale.
 			const x = d3.scaleLinear()
 				.domain([0, d3.max(bins, (d) => d.length)])
-				.range([width, 0]);
+				.range([0, width]);
 			//Add y Axis and the label
 			const xAxis = svg.append("g")
 				.attr("transform", `translate(0,${height})`)
@@ -94,10 +94,10 @@ function HorizontalHistogram({ currColName = 'streams', numBins = 20, currColDis
 				.selectAll()
 				.data(bins)
 				.join("rect")
-				.attr("y", (d) => y(d.x0) + 1)
-				.attr("height", (d) => y(d.x1) - y(d.x0))
-				.attr("x", (d) => width - x(0))
-				.attr("width", (d) => width - x(0))
+				.attr("x", x(0))
+				.attr("width", (d) => x(0))
+				.attr("y", (d) => y(d.x1))
+				.attr("height", (d) => Math.abs(y(d.x0) - y(d.x1)))
 				.on('mouseover', function (event, data) {
 					tooltip
 						.html(
@@ -121,7 +121,7 @@ function HorizontalHistogram({ currColName = 'streams', numBins = 20, currColDis
 				.transition()
 				.duration(800)
 				.delay((d, i) => { return i * 20 })
-				.attr("width", (d) => width - x(d.length))
+				.attr("width", (d) => x(d.length))
 
 		});
 	}, [currColName, numBins, currColDispName])
