@@ -68,7 +68,7 @@ function Scatterplot({ xAxisFeature, yAxisFeature, xAxisCategorical, yAxisCatego
 			svg.append('g')
 				.append('text')
 				.attr("x", width / 2)
-				.attr("y", height + 70)
+				.attr("y", height + 90)
 				.attr("fill", "currentColor")
 				.attr("text-anchor", "end")
 				.text(`${xlabel} →`)

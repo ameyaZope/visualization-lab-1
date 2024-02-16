@@ -59,7 +59,7 @@ function HorizontalBarChart({ currColName = 'released_month', currColDispName = 
 			// Y axis
 			const y = d3.scaleBand()
 				.range([0, height])
-				.domain(data.map(d => (d[currColName])).sort())
+				.domain(data.map(d => (d[currColName])).sort().reverse())
 				.padding(0.1);
 			const yAxis = svg.append("g")
 				.transition()

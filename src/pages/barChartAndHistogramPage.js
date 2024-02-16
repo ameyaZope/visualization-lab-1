@@ -67,7 +67,7 @@ function BarChartAndHistogramPage() {
 
 	return (
 		<Container>
-			<FeatureMenu initialFeature={feature} handleChange={handleFeatureChange} menuItems={featureItems} labelValue='Bar Chart Feature' />
+			<FeatureMenu initialFeature={feature} handleChange={handleFeatureChange} menuItems={featureItems} labelValue='Chart Feature' />
 			<BarOrientationMenu value={value} handleChange={handleChangeRadioButton} />
 			{isCategorical(feature, featureItems) && value === 'vertical_bars' && <BarChart currColName={feature} currColDispName={featureDispString} />}
 			{isCategorical(feature, featureItems) && value !== 'vertical_bars' && <HorizontalBarChart currColName={feature} currColDispName={featureDispString} />}

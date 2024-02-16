@@ -101,7 +101,7 @@ function Histogram({ currColName = 'streams', numBins = 20, currColDispName = 'S
 				.on('mouseover', function (event, data) {
 					tooltip
 						.html(
-							`<div>Frequency: ${data.length} <br> Range: [${data.x0}, ${data.x1}]</div>`
+							`<div>Frequency: ${data.length} <br> Range: [${data.x0}, ${data.x1})</div>`
 						)
 						.style('visibility', 'visible');
 					d3.select(this).transition().attr('fill', '#eec42d');
